@@ -2,10 +2,10 @@
     "schemaVersion": "1.0.0",
     "class": "Device",
     "async": "true",
-    "label": "my BIG-IP declaration for declarative onboarding",
+    "label": "Local BIG-IP declaration for standalone declarative onboarding",
     "Common": {
         "class": "Tenant",
-        "hostname": "bigip.example.com",
+        "hostname": "bigip-14a.tognaci.net",
         "myLicense": {
             "class": "License",
             "licenseType": "regKey",
@@ -19,10 +19,11 @@
             "class": "DNS",
             "nameServers": [
                 "8.8.8.8",
-                "2001:4860:4860::8844"
+                "8.8.4.4"
             ],
             "search": [
-                "f5.com"
+                "f5.com",
+                "tognaci.net"
             ]
         },
         "myNtp": {
@@ -31,24 +32,24 @@
                 "0.pool.ntp.org",
                 "1.pool.ntp.org"
             ],
-            "timezone": "UTC"
+            "timezone": "CST"
         },
         "root": {
             "class": "User",
             "userType": "root",
             "oldPassword": "default",
-            "newPassword": "myNewPass1word"
+            "newPassword": "default"
         },
         "admin": {
             "class": "User",
             "userType": "regular",
-            "password": "asdfjkl",
+            "password": "admin",
             "shell": "bash"
         },
-        "anotherUser": {
+        "vince": {
             "class": "User",
             "userType": "regular",
-            "password": "myPass1word",
+            "password": "vince",
             "partitionAccess": {
                 "Common": {
                     "role": "guest"
@@ -66,16 +67,34 @@
                 }
             ]
         },
+        "internal": {
+            "class": "VLAN",
+            "tag": 4095,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.2",
+                    "tagged": false
+                }
+            ]
+        },
         "external-self": {
             "class": "SelfIp",
-            "address": "1.2.3.4/24",
+            "address": "10.1.10.140/24",
             "vlan": "external",
             "allowService": "default",
             "trafficGroup": "traffic-group-local-only"
         },
-        "myRoute": {
+        "internal-self": {
+            "class": "SelfIp",
+            "address": "10.1.20.140/24",
+            "vlan": "internal",
+            "allowService": "default",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "default": {
             "class": "Route",
-            "gw": "1.2.3.254",
+            "gw": "10.1.10.2",
             "network": "default",
             "mtu": 0
         }
