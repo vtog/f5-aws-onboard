@@ -1,12 +1,12 @@
-AWS Container Lab
-=================
+F5 AWS Onboard Lab
+==================
 
-The purpose of this repo is to give a set of scripts that deploy several AWS
+The purpose of this repo is to give a set of scripts that deploy F5,
+standalone, HA, one or two AZ's.
+
 EC2 instances:
 
-- 1x F5 Big-IP (PAYG)
-- 3x Kubernetes Cluster (1x Master 2x Node)
-- 3x OpenShift Cluster (1x Master 2x Node)
+- F5 25M BEST BIG-IP (PAYG)
 
 Several assumptions are made:
 
@@ -23,11 +23,8 @@ Several assumptions are made:
   #. Ansible
   #. AWS CLI
   #. Big-IP
-  #. Kubernetes
-  #. OpenShift
 
-The following steps build the AWS EC2 instances, the kubernetes cluster, and
-preps the OpenShift nodes.
+The following steps build the AWS EC2 instance:
 
 .. code-block:: bash
 
@@ -35,7 +32,7 @@ preps the OpenShift nodes.
    cd aws-container-lab
    terraform apply
 
-After completion you can lookup the bigip1 mgmt url and passwd.
+After completion you can lookup the bigip1 mgmt url and passwd:
 
 .. code-block:: bash
 
