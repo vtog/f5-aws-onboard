@@ -47,7 +47,7 @@ resource "aws_security_group" "bigip_mgmt_sg" {
 
   tags = {
     Name = "bigip_mgmt_sg"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -85,7 +85,7 @@ resource "aws_security_group" "bigip_external_sg" {
 
   tags = {
     Name = "bigip_external_sg"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -109,7 +109,7 @@ resource "aws_security_group" "bigip_internal_sg" {
 
   tags = {
     Name = "bigip_internal_sg"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -120,7 +120,7 @@ resource "aws_network_interface" "mgmt" {
 
   tags = {
     Name = "bigip${count.index + 1}_mgmt"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -132,7 +132,7 @@ resource "aws_network_interface" "external" {
 
   tags = {
     Name = "bigip${count.index + 1}_external"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -144,7 +144,7 @@ resource "aws_network_interface" "internal" {
 
   tags = {
     Name = "bigip${count.index + 1}_internal"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -156,7 +156,7 @@ resource "aws_eip" "mgmt" {
 
   tags = {
     Name = "bigip${count.index + 1}_mgmt_eip"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -168,7 +168,7 @@ resource "aws_eip" "external" {
 
   tags = {
     Name = "bigip${count.index + 1}_external_eip"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
@@ -213,7 +213,7 @@ resource "aws_instance" "bigip" {
 
   tags = {
     Name = "bigip${count.index + 1}"
-    Lab  = "Containers"
+    Lab  = "BIGIP"
   }
 }
 
