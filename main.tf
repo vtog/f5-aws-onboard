@@ -168,6 +168,7 @@ module "bigip" {
   aws_region          = "${var.aws_region}"
   aws_profile         = "${var.aws_profile}"
   myIP                = "${chomp(data.http.myIP.body)}/32"
+  AZ                  = "${var.AZ}"
   key_name            = "${var.key_name}"
   instance_type       = "${var.bigip_instance_type}"
   bigip_count         = "${var.bigip_count}"

@@ -12,6 +12,7 @@ cidrs               = {
 }
 
 myIP                = "1.1.1.1"
+AZ                  = 2 # Number of AZ's, "1" or "2"
 key_name            = "corp-dev-key"
 public_key_path     = "~/.ssh/id_rsa.pub"
 bigip_instance_type = "m5.large"

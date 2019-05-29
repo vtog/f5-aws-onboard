@@ -11,6 +11,7 @@ data "http" "myIP" {
   url = "http://ipv4.icanhazip.com"
 }
 
+variable "AZ" {}
 variable "key_name" {}
 variable "public_key_path" {}
 variable "bigip_instance_type" {}
