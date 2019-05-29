@@ -126,7 +126,7 @@ resource "aws_network_interface" "mgmt" {
 
 resource "aws_network_interface" "external" {
   count             = "${var.bigip_count}"
-  subnet_id         = "${var.vpc_subnet["${var.AZ == "1" ? 0 : "${count.index + 2}"}"]}"
+  subnet_id         = "${var.vpc_subnet["${var.AZ == "1" ? 2 : "${count.index + 2}"}"]}"
   security_groups   = ["${aws_security_group.bigip_external_sg.id}"]
   private_ips_count = 1
 
@@ -138,7 +138,7 @@ resource "aws_network_interface" "external" {
 
 resource "aws_network_interface" "internal" {
   count             = "${var.bigip_count}"
-  subnet_id         = "${var.vpc_subnet["${var.AZ == "1" ? 0 : "${count.index + 4}"}"]}"
+  subnet_id         = "${var.vpc_subnet["${var.AZ == "1" ? 4 : "${count.index + 4}"}"]}"
   security_groups   = ["${aws_security_group.bigip_internal_sg.id}"]
   private_ips_count = 1
 
