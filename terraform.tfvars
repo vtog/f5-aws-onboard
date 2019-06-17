@@ -11,7 +11,7 @@ cidrs               = {
   internal2         = "10.1.6.0/24"
 }
 
-myIP                = "1.1.1.1"
+#myIP                = "1.1.1.1"
 AZ                  = 1 # Number of AZ's, "1" or "2"
 key_name            = "corp-dev-key"
 public_key_path     = "~/.ssh/id_rsa.pub"
