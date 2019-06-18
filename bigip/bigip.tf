@@ -115,7 +115,7 @@ resource "aws_security_group" "bigip_internal_sg" {
 
 resource "aws_network_interface" "mgmt" {
   count           = var.bigip_count
-  subnet_id       = var.vpc_subnet[var.AZ == "1" ? 0 : count.index]
+  subnet_id       = var.vpc_subnet[var.AZ == 1 ? 0 : count.index]
   security_groups = [aws_security_group.bigip_mgmt_sg.id]
 
   tags = {
@@ -126,7 +126,7 @@ resource "aws_network_interface" "mgmt" {
 
 resource "aws_network_interface" "external" {
   count             = var.bigip_count
-  subnet_id         = var.vpc_subnet[var.AZ == "1" ? 2 : count.index + 2]
+  subnet_id         = var.vpc_subnet[var.AZ == 1 ? 2 : count.index + 2]
   security_groups   = [aws_security_group.bigip_external_sg.id]
   private_ips_count = 1
 
@@ -138,7 +138,7 @@ resource "aws_network_interface" "external" {
 
 resource "aws_network_interface" "internal" {
   count             = var.bigip_count
-  subnet_id         = var.vpc_subnet[var.AZ == "1" ? 4 : count.index + 4]
+  subnet_id         = var.vpc_subnet[var.AZ == 1 ? 4 : count.index + 4]
   security_groups   = [aws_security_group.bigip_internal_sg.id]
   private_ips_count = 1
 
@@ -235,8 +235,8 @@ resource "null_resource" "tmsh" {
   provisioner "local-exec" {
     command = <<EOF
     aws ec2 wait instance-status-ok --region ${var.aws_region} --profile ${var.aws_profile} --instance-ids ${element(aws_instance.bigip.*.id, count.index)}
-#    wget -q https://raw.githubusercontent.com/F5Networks/f5-declarative-onboarding/master/dist/${var.do_rpm}
-#    wget -q https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/dist/latest/${var.as3_rpm}
+    wget -q https://raw.githubusercontent.com/F5Networks/f5-declarative-onboarding/master/dist/${var.do_rpm} -O ${var.do_rpm}
+    wget -q https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/dist/latest/${var.as3_rpm} -O ${var.as3_rpm}
 
     CREDS=${var.bigip_admin}:${random_string.password.result}
     IP=${element(aws_eip.mgmt.*.public_ip, count.index)}
