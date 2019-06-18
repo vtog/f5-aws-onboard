@@ -24,6 +24,12 @@ variable "AZ" {
 variable "key_name" {
 }
 
+variable "ubuntu_instance_type" {
+}
+
+variable "ubuntu_count" {
+}
+
 variable "public_key_path" {
 }
 

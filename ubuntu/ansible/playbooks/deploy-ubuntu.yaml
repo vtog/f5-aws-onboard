@@ -1,0 +1,10 @@
+---
+
+- name: Prep Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+  - import_tasks: update-hosts.yaml
+  - import_tasks: update-ubuntu.yaml
+  - import_tasks: install-pkgs.yaml
+

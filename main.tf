@@ -182,3 +182,17 @@ module "bigip" {
   vpc_subnet          = [aws_subnet.mgmt1_subnet.id, aws_subnet.mgmt2_subnet.id, aws_subnet.external1_subnet.id, aws_subnet.external2_subnet.id, aws_subnet.internal1_subnet.id, aws_subnet.internal2_subnet.id]
 }
 
+#----- Deploy Kubernetes -----
+module "ubuntu" {
+  source        = "./ubuntu"
+  aws_region    = var.aws_region
+  aws_profile   = var.aws_profile
+  myIP          = "${chomp(data.http.myIP.body)}/32"
+  key_name      = var.key_name
+  instance_type = var.ubuntu_instance_type
+  ubuntu_count  = var.ubuntu_count
+  vpc_id        = aws_vpc.bigip_vpc.id
+  vpc_cidr      = var.vpc_cidr
+  vpc_subnet    = [aws_subnet.external1_subnet.id, aws_subnet.external2_subnet.id]
+}
+
