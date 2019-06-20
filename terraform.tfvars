@@ -18,13 +18,18 @@ ubuntu_instance_type = "t3.medium"
 ubuntu_count         = 3
 bigip_instance_type  = "m5.large"
 bigip_count          = 1
-#bigip_ami_prod_code  = "6h6xg9ndbxsrp5iyuotryhl0q" #BYOL
-bigip_ami_prod_code  = "3ouya04g99e5euh4vbxtao1jz" #PAYG
+
+# BYOL
+#bigip_ami_prod_code  = "6h6xg9ndbxsrp5iyuotryhl0q"
 #bigip_ami_name_filt = "F5 BIGIP-14.1* BYOL-LTM 2Boot*"
+
+# PAYG
+bigip_ami_prod_code  = "3ouya04g99e5euh4vbxtao1jz"
 bigip_ami_name_filt  = "F5 BIGIP-14.1* PAYG-Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks BIGIP-14.0* PAYG - Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks BIGIP-13.1* PAYG - Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks Licensed Hourly BIGIP-12.1* Best 25M*"
+
 bigip_admin = "admin"
 do_rpm      = "f5-declarative-onboarding-1.5.0-11.noarch.rpm"
 as3_rpm     = "f5-appsvcs-3.12.0-5.noarch.rpm"
