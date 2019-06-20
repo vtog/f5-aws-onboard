@@ -10,3 +10,8 @@ output "BIGIP_Mgmt_IP" {
 output "BIGIP_Admin_Password" {
   value = "${module.bigip.password}"
 }
+
+output "UBUNTU_IP" {
+  value = "${module.ubuntu.public_ip}"
+}
+

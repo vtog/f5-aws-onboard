@@ -196,13 +196,13 @@ data "template_file" "cloudinit_data" {
 resource "aws_instance" "bigip" {
   ami           = data.aws_ami.f5_ami.id
   instance_type = var.instance_type
+  count         = var.bigip_count
+  key_name      = var.key_name
   depends_on = [
     aws_network_interface.mgmt,
     aws_network_interface.external,
     aws_network_interface.internal,
   ]
-  count    = var.bigip_count
-  key_name = var.key_name
 
   network_interface {
     network_interface_id = element(aws_network_interface.mgmt.*.id, count.index)

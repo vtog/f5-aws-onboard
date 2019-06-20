@@ -38,6 +38,7 @@
     - ntp
     - make
     - python
+    - python-pip
     - git
     - curl
     - locate
