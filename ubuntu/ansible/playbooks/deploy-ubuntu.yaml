@@ -8,3 +8,9 @@
   - import_tasks: update-ubuntu.yaml
   - import_tasks: install-pkgs.yaml
 
+- name: Setup Jumpbox
+  hosts: desktop
+  become: yes
+  tasks:
+  - import_tasks: install-desktop.yaml
+

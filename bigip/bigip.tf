@@ -297,22 +297,22 @@ EOF
 #-------- bigip output --------
 
 output "public_dns" {
-value = formatlist(
-"%s = https://%s",
-aws_instance.bigip.*.tags.Name,
-aws_instance.bigip.*.public_dns,
-)
+  value = formatlist(
+  "%s = https://%s",
+  aws_instance.bigip.*.tags.Name,
+  aws_instance.bigip.*.public_dns,
+  )
 }
 
 output "public_ip" {
-value = formatlist(
-"%s = %s ",
-aws_instance.bigip.*.tags.Name,
-aws_instance.bigip.*.public_ip,
-)
+  value = formatlist(
+  "%s = %s ",
+  aws_instance.bigip.*.tags.Name,
+  aws_instance.bigip.*.public_ip,
+  )
 }
 
 output "password" {
-value = random_string.password.result
+  value = random_string.password.result
 }
 

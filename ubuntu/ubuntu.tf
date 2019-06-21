@@ -4,7 +4,7 @@ data "aws_ami" "ubuntu_ami" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-disco-*-amd64*"]
   }
 
   filter {
@@ -20,6 +20,13 @@ resource "aws_security_group" "ubuntu_sg" {
   ingress {
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.myIP]
+  }
+
+  ingress {
+    from_port   = 3389
+    to_port     = 3389
     protocol    = "tcp"
     cidr_blocks = [var.myIP]
   }
@@ -66,6 +73,11 @@ data "template_file" "inventory" {
 ${instance.tags.Name} ansible_host=${instance.public_ip} private_ip=${instance.private_ip}
 %{ endfor ~}
 
+[desktop]
+%{ for instance in aws_instance.ubuntu ~}
+%{ if instance.tags.Name == "jumpbox" }${instance.tags.Name} ansible_host=${instance.public_ip} private_ip=${instance.private_ip}%{ endif }
+%{ endfor ~}
+
 [all:vars]
 ansible_user=ubuntu
 ansible_python_interpreter=/usr/bin/python3
@@ -85,7 +97,7 @@ resource "null_resource" "ansible" {
     working_dir = "./ubuntu/ansible/"
 
     command = <<EOF
-    aws ec2 wait instance-status-ok --region ${var.aws_region} --profile ${var.aws_profile} --instance-ids ${aws_instance.ubuntu.*.id}
+    aws ec2 wait instance-status-ok --region ${var.aws_region} --profile ${var.aws_profile} --instance-ids ${join(" ", aws_instance.ubuntu.*.id)}
     ansible-playbook ./playbooks/deploy-ubuntu.yaml
     EOF
   }

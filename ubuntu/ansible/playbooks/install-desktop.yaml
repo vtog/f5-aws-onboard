@@ -1,0 +1,13 @@
+---
+
+- name: Install desktop packages
+  apt:
+    name: "{{ packages }}"
+    force_apt_get: yes
+    update_cache: yes
+    state: present
+  vars:
+    packages:
+    - xrdp
+    - ubuntu-mate-desktop
+
