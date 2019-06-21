@@ -9,5 +9,6 @@
   vars:
     packages:
     - xrdp
-    - ubuntu-mate-desktop
+    - ubuntu-desktop
+    - gnome-tweaks
 
