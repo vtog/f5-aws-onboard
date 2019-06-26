@@ -12,7 +12,7 @@ cidrs = {
 }
 
 AZ                   = 1 # Number of AZ's, "1" or "2"
-key_name             = "corp-dev-key"
+key_name             = "bigip-lab-key"
 public_key_path      = "~/.ssh/id_rsa.pub"
 ubuntu_instance_type = "t3.medium"
 ubuntu_count         = 3

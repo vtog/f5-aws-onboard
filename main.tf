@@ -182,7 +182,7 @@ module "bigip" {
   vpc_subnet          = [aws_subnet.mgmt1_subnet.id, aws_subnet.mgmt2_subnet.id, aws_subnet.external1_subnet.id, aws_subnet.external2_subnet.id, aws_subnet.internal1_subnet.id, aws_subnet.internal2_subnet.id]
 }
 
-#----- Deploy Kubernetes -----
+#----- Deploy Ubuntu -----
 module "ubuntu" {
   source        = "./ubuntu"
   aws_region    = var.aws_region
