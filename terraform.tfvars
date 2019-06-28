@@ -20,7 +20,7 @@ bigip_instance_type  = "m5.large"
 bigip_count          = 1
 
 # BYOL
-bigip_ami_prod_code  = "6h6xg9ndbxsrp5iyuotryhl0q"
+bigip_ami_prod_code = "6h6xg9ndbxsrp5iyuotryhl0q"
 bigip_ami_name_filt = "F5 BIGIP-14.1* BYOL-LTM 2Boot*"
 
 # PAYG

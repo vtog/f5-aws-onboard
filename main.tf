@@ -524,7 +524,7 @@ resource "null_resource" "onboard" {
 
 #----- Configure and Send AS3 Declaration -----
 data "template_file" "as3_data" {
-  count = var.bigip_count
+  count    = var.bigip_count
   template = file("./bigip/as3_data.tpl")
 
   vars = {
@@ -537,14 +537,14 @@ data "template_file" "as3_data" {
 data "template_file" "inventory" {
   template = <<EOF
 [all]
-%{ for instance in aws_instance.ubuntu ~}
+%{for instance in aws_instance.ubuntu~}
 ${instance.tags.Name} ansible_host=${instance.public_ip} private_ip=${instance.private_ip}
-%{ endfor ~}
+%{endfor~}
 
 [desktop]
-%{ for instance in aws_instance.ubuntu ~}
-%{ if instance.tags.Name == "jumpbox" }${instance.tags.Name} ansible_host=${instance.public_ip} private_ip=${instance.private_ip}%{ endif }
-%{ endfor ~}
+%{for instance in aws_instance.ubuntu~}
+%{if instance.tags.Name == "jumpbox"}${instance.tags.Name} ansible_host=${instance.public_ip} private_ip=${instance.private_ip} %{endif}
+%{endfor~}
 
 [all:vars]
 ansible_user=ubuntu
