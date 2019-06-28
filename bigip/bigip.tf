@@ -253,12 +253,12 @@ resource "null_resource" "tmsh" {
     curl -ku $CREDS https://$IP/mgmt/shared/iapp/package-management-tasks -H "Origin: https://$IP" -H 'Content-Type: application/json;charset=UTF-8' --data $do_DATA
     curl -ku $CREDS https://$IP/mgmt/shared/iapp/package-management-tasks -H "Origin: https://$IP" -H 'Content-Type: application/json;charset=UTF-8' --data $as3_DATA
 
-    
 EOF
 
   }
 }
 
+#----- Configure and Send DO Declaration -----
 data "template_file" "do_data" {
   count = var.bigip_count
   template = file("${path.module}/do_data.tpl")
@@ -288,14 +288,22 @@ resource "null_resource" "onboard" {
             -H "Content-Type: application/json" \
             -u ${var.bigip_admin}:${random_string.password.result} \
             -d '${data.template_file.do_data[count.index].rendered} '
-    
-EOF
-
+    EOF
+  }
 }
+
+#----- Configure and Send AS3 Declaration -----
+data "template_file" "as3_data" {
+  count = var.bigip_count
+  template = file("${path.module}/as3_data.tpl")
+
+  vars = {
+    pool_members = join(", ", formatlist("\"%s\"", module.ubuntu.aws_instance.ubuntu.*.private_ip))
+    vips         = join(", ", formatlist("\"%s\"", aws_network_interface.external.*.private_ip))
+  }
 }
 
 #-------- bigip output --------
-
 output "public_dns" {
   value = formatlist(
   "%s = https://%s",

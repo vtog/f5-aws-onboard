@@ -20,12 +20,12 @@ bigip_instance_type  = "m5.large"
 bigip_count          = 1
 
 # BYOL
-#bigip_ami_prod_code  = "6h6xg9ndbxsrp5iyuotryhl0q"
-#bigip_ami_name_filt = "F5 BIGIP-14.1* BYOL-LTM 2Boot*"
+bigip_ami_prod_code  = "6h6xg9ndbxsrp5iyuotryhl0q"
+bigip_ami_name_filt = "F5 BIGIP-14.1* BYOL-LTM 2Boot*"
 
 # PAYG
-bigip_ami_prod_code  = "3ouya04g99e5euh4vbxtao1jz"
-bigip_ami_name_filt  = "F5 BIGIP-14.1* PAYG-Best 25M*"
+#bigip_ami_prod_code  = "3ouya04g99e5euh4vbxtao1jz"
+#bigip_ami_name_filt  = "F5 BIGIP-14.1* PAYG-Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks BIGIP-14.0* PAYG - Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks BIGIP-13.1* PAYG - Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks Licensed Hourly BIGIP-12.1* Best 25M*"

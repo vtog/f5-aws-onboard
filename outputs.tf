@@ -1,17 +1,28 @@
-#--------root/outputs.tf--------
-output "BIGIP_Admin_URL" {
-  value = "${module.bigip.public_dns}"
+output "bigip_password" {
+  value = random_string.password.result
 }
 
-output "BIGIP_Mgmt_IP" {
-  value = "${module.bigip.public_ip}"
+output "bigip_public_dns" {
+  value = formatlist(
+  "%s = https://%s",
+  aws_instance.bigip.*.tags.Name,
+  aws_instance.bigip.*.public_dns,
+  )
 }
 
-output "BIGIP_Admin_Password" {
-  value = "${module.bigip.password}"
+output "bigip_public_ip" {
+  value = formatlist(
+  "%s = %s ",
+  aws_instance.bigip.*.tags.Name,
+  aws_instance.bigip.*.public_ip,
+  )
 }
 
-output "UBUNTU_IP" {
-  value = "${module.ubuntu.public_ip}"
+output "ubuntu_public_ip" {
+  value = formatlist(
+  "%s = %s ",
+  aws_instance.ubuntu.*.tags.Name,
+  aws_instance.ubuntu.*.public_ip
+  )
 }
 
