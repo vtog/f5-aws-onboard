@@ -1,5 +1,5 @@
 aws_profile = "vtog"
-aws_region  = "us-east-2"
+aws_region  = "us-east-1"
 vpc_cidr    = "10.1.0.0/16"
 
 cidrs = {
@@ -20,16 +20,16 @@ bigip_instance_type  = "m5.large"
 bigip_count          = 1
 
 # BYOL
-bigip_ami_prod_code = "6h6xg9ndbxsrp5iyuotryhl0q"
-bigip_ami_name_filt = "F5 BIGIP-14.1* BYOL-LTM 2Boot*"
+#bigip_ami_prod_code = "6h6xg9ndbxsrp5iyuotryhl0q"
+#bigip_ami_name_filt = "F5 BIGIP-14.1* BYOL-LTM 2Boot*"
 
 # PAYG
-#bigip_ami_prod_code  = "3ouya04g99e5euh4vbxtao1jz"
-#bigip_ami_name_filt  = "F5 BIGIP-14.1* PAYG-Best 25M*"
+bigip_ami_prod_code  = "3ouya04g99e5euh4vbxtao1jz"
+bigip_ami_name_filt  = "F5 BIGIP-14.1* PAYG-Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks BIGIP-14.0* PAYG - Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks BIGIP-13.1* PAYG - Best 25M*"
 #bigip_ami_name_filt  = "F5 Networks Licensed Hourly BIGIP-12.1* Best 25M*"
 
 bigip_admin = "admin"
-do_rpm      = "f5-declarative-onboarding-1.5.0-11.noarch.rpm"
-as3_rpm     = "f5-appsvcs-3.12.0-5.noarch.rpm"
+do_rpm      = "f5-declarative-onboarding-1.6.0-1.noarch.rpm"
+as3_rpm     = "f5-appsvcs-3.13.0-3.noarch.rpm"
