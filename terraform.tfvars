@@ -17,7 +17,7 @@ public_key_path      = "~/.ssh/id_rsa.pub"
 ubuntu_instance_type = "t3.medium"
 ubuntu_count         = 3
 bigip_instance_type  = "m5.large"
-bigip_count          = 1
+bigip_count          = 3
 
 # BYOL
 #bigip_ami_prod_code = "6h6xg9ndbxsrp5iyuotryhl0q"
