@@ -467,8 +467,8 @@ resource "null_resource" "prep_bigip" {
   provisioner "local-exec" {
     command = <<EOF
     aws ec2 wait instance-status-ok --region ${var.aws_region} --profile ${var.aws_profile} --instance-ids ${element(aws_instance.bigip.*.id, count.index)}
-    wget -q https://raw.githubusercontent.com/F5Networks/f5-declarative-onboarding/master/dist/${var.do_rpm} -O ${var.do_rpm}
-    wget -q https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/dist/latest/${var.as3_rpm} -O ${var.as3_rpm}
+    #wget -q https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.9.0/${var.do_rpm} -O ${var.do_rpm}
+    #wget -q https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.16.0/${var.as3_rpm} -O ${var.as3_rpm}
 
     CREDS=${var.bigip_admin}:${random_string.password.result}
     IP=${element(aws_eip.mgmt.*.public_ip, count.index)}
@@ -504,6 +504,13 @@ data "template_file" "do_data" {
   }
 }
 
+resource "local_file" "save_do_data" {
+  depends_on = [data.template_file.do_data]
+  count = var.bigip_count
+  content = data.template_file.do_data[count.index].rendered
+  filename = "./bigip/bigip${count.index + 1}.tpl"
+}
+
 resource "null_resource" "onboard" {
   depends_on = [null_resource.prep_bigip]
   count = var.bigip_count
@@ -517,7 +524,7 @@ resource "null_resource" "onboard" {
             --retry-delay 30 \
             -H "Content-Type: application/json" \
             -u ${var.bigip_admin}:${random_string.password.result} \
-            -d '${data.template_file.do_data[count.index].rendered} '
+            -d @./bigip/bigip${count.index + 1}.tpl
     EOF
   }
 }
@@ -569,38 +576,4 @@ resource "null_resource" "ansible" {
     EOF
   }
 }
-
-#----- Deploy Big-IP -----
-#module "bigip" {
-#  source              = "./bigip"
-#  aws_region          = var.aws_region
-#  aws_profile         = var.aws_profile
-#  myIP                = "${chomp(data.http.myIP.body)}/32"
-#  AZ                  = var.AZ
-#  key_name            = var.key_name
-#  instance_type       = var.bigip_instance_type
-#  bigip_count         = var.bigip_count
-#  bigip_ami_prod_code = var.bigip_ami_prod_code
-#  bigip_ami_name_filt = var.bigip_ami_name_filt
-#  bigip_admin         = var.bigip_admin
-#  do_rpm              = var.do_rpm
-#  as3_rpm             = var.as3_rpm
-#  vpc_id              = aws_vpc.bigip_vpc.id
-#  vpc_cidr            = var.vpc_cidr
-#  vpc_subnet          = [aws_subnet.mgmt1_subnet.id, aws_subnet.mgmt2_subnet.id, aws_subnet.external1_subnet.id, aws_subnet.external2_subnet.id, aws_subnet.internal1_subnet.id, aws_subnet.internal2_subnet.id]
-#}
-
-#----- Deploy Ubuntu -----
-#module "ubuntu" {
-#  source        = "./ubuntu"
-#  aws_region    = var.aws_region
-#  aws_profile   = var.aws_profile
-#  myIP          = "${chomp(data.http.myIP.body)}/32"
-#  key_name      = var.key_name
-#  instance_type = var.ubuntu_instance_type
-#  ubuntu_count  = var.ubuntu_count
-#  vpc_id        = aws_vpc.bigip_vpc.id
-#  vpc_cidr      = var.vpc_cidr
-#  vpc_subnet    = [aws_subnet.external1_subnet.id, aws_subnet.external2_subnet.id]
-#}
 
