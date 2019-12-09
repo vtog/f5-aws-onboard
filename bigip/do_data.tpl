@@ -8,6 +8,7 @@
                 "myDns": {
                     "class": "DNS",
                     "nameServers": [
+                        "${aws_dns}",
                         "8.8.8.8",
                         "8.8.4.4"
                     ],

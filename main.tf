@@ -498,6 +498,7 @@ data "template_file" "do_data" {
     members = join(", ", formatlist("\"%s\"", aws_instance.bigip.*.private_dns))
     admin = var.bigip_admin
     password = random_string.password.result
+    aws_dns = cidrhost(var.vpc_cidr, 2)
     mgmt_ip = element(aws_network_interface.mgmt.*.private_ip, count.index)
     external_ip = element(aws_network_interface.external.*.private_ip, count.index)
     internal_ip = element(aws_network_interface.internal.*.private_ip, count.index)
